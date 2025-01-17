@@ -1,12 +1,12 @@
 {
-  "name": "ui",
+  "name": "aoian-ui",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "type": "module",
   "author": {
-    "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
+    "name": "petitspois",
+    "url": "https://twitter.com/petitspois"
   },
   "workspaces": [
     "apps/*",
@@ -14,19 +14,16 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build:cli": "turbo --filter=shadcn build",
+    "build:cli": "turbo --filter=aoian build",
     "build:registry": "pnpm --filter=www build:registry && pnpm --filter=www lint:fix && pnpm format:write -- --loglevel silent",
     "registry:build": "pnpm --filter=www build:registry && pnpm --filter=www lint:fix && pnpm format:write -- --loglevel silent",
     "registry:capture": "pnpm --filter=www registry:capture",
     "dev": "turbo run dev --parallel",
-    "cli:dev": "turbo --filter=shadcn-ui dev",
-    "cli:start": "pnpm --filter=shadcn-ui start:dev",
-    "cli:build": "pnpm --filter=shadcn-ui build",
-    "shadcn:dev": "turbo --filter=shadcn dev",
-    "shadcn": "pnpm --filter=shadcn start:dev",
-    "shadcn:prod": "pnpm --filter=shadcn start:prod",
-    "shadcn:build": "pnpm --filter=shadcn build",
-    "shadcn:test": "pnpm --filter=shadcn test",
+    "aoian:dev": "turbo --filter=aoian dev",
+    "aoian": "pnpm --filter=aoian start:dev",
+    "aoian:prod": "pnpm --filter=aoian start:prod",
+    "aoian:build": "pnpm --filter=aoian build",
+    "aoian:test": "pnpm --filter=aoian test",
     "docs:build": "pnpm --filter=www build:docs",
     "www:dev": "pnpm --filter=www dev",
     "www:build": "pnpm --filter=www build",
@@ -39,8 +36,8 @@
     "sync:templates": "./scripts/sync-templates.sh \"templates/*\"",
     "check": "turbo lint typecheck format:check",
     "release": "changeset version",
-    "pub:beta": "cd packages/shadcn && pnpm pub:beta",
-    "pub:release": "cd packages/shadcn && pnpm pub:release",
+    "pub:beta": "cd packages/aoian && pnpm pub:beta",
+    "pub:release": "cd packages/aoian && pnpm pub:release",
     "test": "turbo run test --force"
   },
   "packageManager": "pnpm@9.0.6",

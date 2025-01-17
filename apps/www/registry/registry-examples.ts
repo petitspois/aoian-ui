@@ -1,4 +1,4 @@
-import { type Registry } from "shadcn/registry"
+import { type Registry } from "aoian/registry"
 
 export const examples: Registry["items"] = [
   {

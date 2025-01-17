@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "shadcn/ui",
-  url: "https://ui.shadcn.com",
+  name: "aoian/ui",
+  url: "https://ui.aoian.chat",
   ogImage: "https://ui.shadcn.com/og.jpg",
   description:
     "Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.",
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn-ui/ui",
+    twitter: "https://twitter.com/aoian",
+    github: "https://github.com/petitspois/aoian-ui",
   },
 }
 

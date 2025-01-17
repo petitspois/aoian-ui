@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "shadcn",
-      url: "https://shadcn.com",
+      name: "petitspois",
+      url: "https://ui.aoian.chat",
     },
   ],
   creator: "shadcn",

@@ -2,7 +2,7 @@ import { promises as fs } from "fs"
 import { tmpdir } from "os"
 import path from "path"
 import { Index } from "@/__registry__"
-import { registryItemFileSchema, registryItemSchema } from "shadcn/registry"
+import { registryItemFileSchema, registryItemSchema } from "aoian/registry"
 import { Project, ScriptKind, SourceFile, SyntaxKind } from "ts-morph"
 import { z } from "zod"
 
@@ -161,7 +161,7 @@ function getFileTarget(file: z.infer<typeof registryItemFileSchema>) {
 }
 
 async function createTempSourceFile(filename: string) {
-  const dir = await fs.mkdtemp(path.join(tmpdir(), "shadcn-"))
+  const dir = await fs.mkdtemp(path.join(tmpdir(), "aoian-"))
   return path.join(dir, filename)
 }
 

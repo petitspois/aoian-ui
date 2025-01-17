@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to ui.shadcn.com. We're happy to have you here.
+Thanks for your interest in contributing to ui.aoian.chat. We're happy to have you here.
 
 Please take a moment to review this document before submitting your first pull request. We also strongly recommend that you check for open issues and pull requests to see if someone else is working on something similar.
 
@@ -36,12 +36,12 @@ packages
 ```
 
 | Path                  | Description                              |
-| --------------------- | ---------------------------------------- |
+|-----------------------|------------------------------------------|
 | `apps/www/app`        | The Next.js application for the website. |
 | `apps/www/components` | The React components for the website.    |
 | `apps/www/content`    | The content for the website.             |
 | `apps/www/registry`   | The registry for the components.         |
-| `packages/cli`        | The `shadcn-ui` package.                 |
+| `packages/aoian`      | The `aoian-ui` package.                  |
 
 ## Development
 
@@ -79,16 +79,16 @@ You can use the `pnpm --filter=[WORKSPACE]` command to start the development pro
 
 #### Examples
 
-1. To run the `ui.shadcn.com` website:
+1. To run the `ui.aoian.chat` website:
 
 ```bash
 pnpm --filter=www dev
 ```
 
-2. To run the `shadcn-ui` package:
+2. To run the `aoian-ui` package:
 
 ```bash
-pnpm --filter=shadcn-ui dev
+pnpm --filter=aoian dev
 ```
 
 ## Running the CLI Locally
@@ -104,13 +104,13 @@ To run the CLI locally, you can follow the workflow:
 2. Run the development script for the CLI:
 
    ```bash
-   pnpm shadcn:dev
+   pnpm aoian:dev
    ```
 
 3. In another terminal tab, test the CLI by running:
 
    ```bash
-   pnpm shadcn
+   pnpm aoian
    ```
 
    To test the CLI in a specific app, use a command like:

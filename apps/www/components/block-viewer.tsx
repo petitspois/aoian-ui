@@ -16,7 +16,7 @@ import {
   Terminal,
 } from "lucide-react"
 import { ImperativePanelHandle } from "react-resizable-panels"
-import { registryItemFileSchema, registryItemSchema } from "shadcn/registry"
+import { registryItemFileSchema, registryItemSchema } from "aoian/registry"
 import { z } from "zod"
 
 import { trackEvent } from "@/lib/events"
