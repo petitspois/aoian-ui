@@ -54,6 +54,16 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        chat: {
+          DEFAULT: "hsl(var(--chat-background))",
+          foreground: "hsl(var(--chat-foreground))",
+          primary: "hsl(var(--chat-primary-background))",
+          "primary-foreground": "hsl(var(--chat-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
+        },
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       url: "https://ui.aoian.chat",
     },
   ],
-  creator: "shadcn",
+  creator: "petitspois",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@shadcn",
+    creator: "@petitspois",
   },
   icons: {
     icon: "/favicon.ico",
@@ -91,7 +91,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         </head>
         <body
           className={cn(
-            "min-h-svh bg-background font-sans antialiased",
+            "min-h-svh bg-secondary font-sans antialiased",
             fontSans.variable,
             fontMono.variable
           )}
@@ -104,7 +104,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             enableColorScheme
           >
             <div vaul-drawer-wrapper="">
-              <div className="relative flex min-h-svh flex-col bg-background">
+              <div className="relative flex min-h-svh flex-col bg-secondary">
                 {children}
               </div>
             </div>

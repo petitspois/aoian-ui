@@ -3,6 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { registryItemFileSchema, registryItemSchema } from "aoian/registry"
 import {
   Check,
   ChevronRight,
@@ -16,7 +17,6 @@ import {
   Terminal,
 } from "lucide-react"
 import { ImperativePanelHandle } from "react-resizable-panels"
-import { registryItemFileSchema, registryItemSchema } from "aoian/registry"
 import { z } from "zod"
 
 import { trackEvent } from "@/lib/events"

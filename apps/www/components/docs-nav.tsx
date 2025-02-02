@@ -11,7 +11,6 @@ export function DocsNav({ config }: { config: DocsConfig }) {
   const pathname = usePathname()
 
   const items = config.sidebarNav
-
   return items.length ? (
     <div className="flex flex-col gap-6">
       {items.map((item, index) => (

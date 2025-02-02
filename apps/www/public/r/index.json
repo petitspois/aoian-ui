@@ -95,6 +95,16 @@
     ]
   },
   {
+    "name": "bubble",
+    "type": "registry:ui",
+    "files": [
+      {
+        "path": "ui/bubble.tsx",
+        "type": "registry:ui"
+      }
+    ]
+  },
+  {
     "name": "badge",
     "type": "registry:ui",
     "files": [

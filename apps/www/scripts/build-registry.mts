@@ -37,7 +37,7 @@ const project = new Project({
 })
 
 async function createTempSourceFile(filename: string) {
-  const dir = await fs.mkdtemp(path.join(tmpdir(), "shadcn-"))
+  const dir = await fs.mkdtemp(path.join(tmpdir(), "aoian-"))
   return path.join(dir, filename)
 }
 
@@ -800,15 +800,18 @@ export const Icons = {
 try {
   console.log("💽 Building registry...")
   const result = registrySchema.safeParse(registry)
-
   if (!result.success) {
     console.error(result.error)
     process.exit(1)
   }
 
+  // 将 new-york 样式的文件同步到 default 样式中，并替换文件中的路径。
   await syncStyles()
+  // 构建一个注册表索引文件 __registry__/index.tsx，并将项目的信息写入该文件中。同时，它还会生成一个 registry/index.json 文件，其中包含类型为 "registry:ui" 的项目的信息
   await buildRegistry(result.data)
+  // 为每个样式生成一个 JSON 文件，public/r/styles/[type]/*json
   await buildStyles(result.data)
+  // public/r/styles/index.json
   await buildStylesIndex()
   await buildThemes()
 

@@ -24,6 +24,7 @@ interface DocPageProps {
 
 async function getDocFromParams({ params }: DocPageProps) {
   const slug = params.slug?.join("/") || ""
+
   const doc = allDocs.find((doc) => doc.slugAsParams === slug)
 
   if (!doc) {
@@ -87,8 +88,8 @@ export default async function DocPage({ params }: DocPageProps) {
   const toc = await getTableOfContents(doc.body.raw)
 
   return (
-    <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
-      <div className="mx-auto w-full min-w-0 max-w-2xl">
+    <main className="relative lg:gap-5 lg:pt-5 xl:grid xl:grid-cols-[1fr_300px]">
+      <div className="mx-auto w-full min-w-0 rounded-2xl bg-background p-5">
         <div className="mb-4 flex items-center space-x-1 text-sm leading-none text-muted-foreground">
           <div className="truncate">Docs</div>
           <ChevronRight className="h-3.5 w-3.5" />
@@ -135,12 +136,10 @@ export default async function DocPage({ params }: DocPageProps) {
         </div>
         <DocsPager doc={doc} />
       </div>
-      <div className="hidden text-sm xl:block">
-        <div className="sticky top-20 -mt-6 h-[calc(100vh-3.5rem)] pt-4">
-          <div className="no-scrollbar h-full overflow-auto pb-10">
-            {doc.toc && <DashboardTableOfContents toc={toc} />}
-            <OpenInV0Cta className="mt-6 max-w-[80%]" />
-          </div>
+      <div className="sticky top-[84px] hidden self-start rounded-2xl bg-background p-5 text-sm xl:block">
+        <div className="no-scrollbar overflow-auto">
+          {doc.toc && <DashboardTableOfContents toc={toc} />}
+          <OpenInV0Cta className="mt-6 max-w-[80%]" />
         </div>
       </div>
     </main>

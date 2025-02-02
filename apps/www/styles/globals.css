@@ -5,15 +5,15 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --foreground: 235 44% 15%;
+    --secondary: 225 100% 99% ;
+    --secondary-foreground: 217 27% 69%;
+    --card: 220 33% 96%;
+    --card-foreground: 235 44% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 240 4.8% 95.9%;
@@ -37,19 +37,23 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 240 5% 64.9%;
+    --chat-background: 225 40% 96%;
+    --chat-foreground: 235 44% 15%;
+    --chat-primary-background: 0 0% 100%;
+    --chat-primary-foreground: 217 71% 15%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 11%;
+    --foreground: 0 0% 100%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 217 27% 69%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
@@ -72,6 +76,10 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 240 4.9% 83.9%;
+    --chat-background: 0 0% 11%;
+    --chat-foreground: 0 0% 100%;
+    --chat-primary-background: 0 0% 18%;
+    --chat-primary-foreground: 0 0% 100%;
   }
 }
 
@@ -147,10 +155,10 @@
   }
 
   .container-wrapper {
-    @apply min-[1800px]:max-w-[1536px] min-[1800px]:border-x border-border/30 dark:border-border mx-auto w-full;
+    @apply mx-auto w-full px-5;
   }
 
   .container {
-    @apply px-4 xl:px-6 2xl:px-4 mx-auto max-w-[1536px];
+    @apply w-full p-5;
   }
 }

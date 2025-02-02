@@ -101,7 +101,6 @@ export function rehypeComponent() {
 
       if (node.name === "ComponentPreview") {
         const name = getNodeAttributeByName(node, "name")?.value as string
-
         if (!name) {
           return null
         }
@@ -110,7 +109,6 @@ export function rehypeComponent() {
           for (const style of styles) {
             const component = Index[style.name][name]
             const src = component.files[0]?.path
-
             // Read the source file.
             const filePath = src
             let source = fs.readFileSync(filePath, "utf8")

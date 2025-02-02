@@ -79,6 +79,17 @@ export const ui: Registry["items"] = [
     ],
   },
   {
+    name: "bubble",
+    type: "registry:ui",
+    registryDependencies: ["avatar"],
+    files: [
+      {
+        path: "ui/bubble.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
     name: "badge",
     type: "registry:ui",
     files: [

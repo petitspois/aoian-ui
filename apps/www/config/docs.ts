@@ -179,6 +179,11 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "Bubble",
+          href: "/docs/components/bubble",
+          items: [],
+        },
+        {
           title: "Badge",
           href: "/docs/components/badge",
           items: [],
