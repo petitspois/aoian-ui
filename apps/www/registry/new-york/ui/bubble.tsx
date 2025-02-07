@@ -2,12 +2,6 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/registry/new-york/ui/avatar"
-import { Button } from "@/registry/new-york/ui/button"
 
 export interface TypingOption {
   /**
@@ -80,26 +74,6 @@ type BubbleAvatarProps = {
   children?: React.ReactNode
 }
 
-const BubbleAvatar = React.forwardRef<
-  React.ElementRef<typeof Avatar>,
-  BubbleAvatarProps
->(({ containerClassName, className, src, alt, children }, ref) => {
-  return (
-    <Avatar className={cn("h-8 w-8", containerClassName)} ref={ref}>
-      {src && <AvatarImage src={src} alt={alt ?? "@aoian"} />}
-      <AvatarFallback
-        className={cn(
-          "bg-purple-400 text-sm font-medium text-white",
-          className
-        )}
-      >
-        {children}
-      </AvatarFallback>
-    </Avatar>
-  )
-})
-BubbleAvatar.displayName = "BubbleAvatar"
-
 const BubbleHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -140,11 +114,4 @@ const BubbleFooter = React.forwardRef<
 })
 BubbleFooter.displayName = "BubbleFooter"
 
-export {
-  Bubble,
-  BubbleAvatar,
-  BubbleHeader,
-  BubbleContent,
-  BubbleItem,
-  BubbleFooter,
-}
+export { Bubble, BubbleHeader, BubbleContent, BubbleItem, BubbleFooter }

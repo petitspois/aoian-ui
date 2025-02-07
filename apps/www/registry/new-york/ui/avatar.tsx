@@ -2,49 +2,82 @@
 
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
+import { VariantProps, cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    )}
-    {...props}
-  />
-))
+const avatarVariants = cva(
+  "inline-flex justify-center items-center relative align-middle",
+  {
+    variants: {
+      variant: {
+        default: "bg-secondary text-secondary-foreground",
+      },
+      shape: {
+        circle: "rounded-full",
+        square: "rounded",
+      },
+      size: {
+        default: "h-10 min-w-10 text-xl",
+        sm: "h-8 min-w-8 text-sm",
+        lg: "h-16 min-w-16 text-4xl",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      shape: "circle",
+      size: "default",
+    },
+  }
+)
+
+export interface AvatarProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof avatarVariants> {
+  /**
+   * @en Whether to automatically adjust the font size according to the size of the avatar.
+   * @defaultValue true
+   */
+  autoFixFontSize?: boolean
+}
+
+const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
+  (
+    { className, variant, shape, size, autoFixFontSize, children, ...props },
+    ref
+  ) => {
+    const textRef = React.useRef(null)
+
+    React.useEffect(() => {
+      if (autoFixFontSize) {
+        autoFixFontSizeHandler()
+      }
+    }, [size, children])
+
+    // auto adjust font size
+    function autoFixFontSizeHandler() {
+      if (textRef.current) {
+        const textWidth = textRef.current.clientWidth
+        const size = props.size || avatarRef.current.offsetWidth
+        const scale = size / (textWidth + 8)
+
+        if (size && scale < 1) {
+          textRef.current.style.transform = `scale(${scale}) translateX(-50%)`
+        }
+      }
+    }
+
+    return (
+      <div
+        ref={ref}
+        className={cn(avatarVariants({ variant, shape, size }), className)}
+        {...props}
+      >
+        <span ref={textRef}>{children}</span>
+      </div>
+    )
+  }
+)
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
-))
-AvatarImage.displayName = AvatarPrimitive.Image.displayName
-
-const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
-    )}
-    {...props}
-  />
-))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
-
-export { Avatar, AvatarImage, AvatarFallback }
+export { Avatar }
