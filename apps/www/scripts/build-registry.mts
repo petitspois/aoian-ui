@@ -41,60 +41,6 @@ async function createTempSourceFile(filename: string) {
   return path.join(dir, filename)
 }
 
-// ----------------------------------------------------------------------------
-// Sync styles
-// ----------------------------------------------------------------------------
-async function syncStyles() {
-  const sourceStyle = "new-york"
-  const targetStyle = "default"
-
-  const syncDirectories = ["blocks", "hooks", "internal", "lib", "charts"]
-
-  // Clean up sync directories.
-  for (const dir of syncDirectories) {
-    rimraf.sync(path.join("registry", targetStyle, dir))
-  }
-
-  for (const item of registry.items) {
-    if (
-      !REGISTRY_INDEX_WHITELIST.includes(item.type) &&
-      item.type !== "registry:ui"
-    ) {
-      continue
-    }
-
-    const resolveFiles = item.files?.map(
-      (file) =>
-        `registry/${sourceStyle}/${typeof file === "string" ? file : file.path}`
-    )
-    if (!resolveFiles) {
-      continue
-    }
-
-    // Copy files to target style if they don't exist.
-    for (const file of resolveFiles) {
-      const sourcePath = path.join(process.cwd(), file)
-      const targetPath = path.join(
-        process.cwd(),
-        file.replace(sourceStyle, targetStyle)
-      )
-
-      if (!existsSync(targetPath)) {
-        // Create directory if it doesn't exist.
-        await fs.mkdir(path.dirname(targetPath), { recursive: true })
-        await fs.copyFile(sourcePath, targetPath)
-
-        // Replace all @/registry/new-york/ with @/registry/default/.
-        const content = await fs.readFile(targetPath, "utf8")
-        const fixedContent = content.replace(
-          new RegExp(`@/registry/${sourceStyle}/`, "g"),
-          `@/registry/${targetStyle}/`
-        )
-        await fs.writeFile(targetPath, fixedContent, "utf8")
-      }
-    }
-  }
-}
 
 // ----------------------------------------------------------------------------
 // Build __registry__/index.tsx.
@@ -805,8 +751,7 @@ try {
     process.exit(1)
   }
 
-  // 将 new-york 样式的文件同步到 default 样式中，并替换文件中的路径。
-  await syncStyles()
+
   // 构建一个注册表索引文件 __registry__/index.tsx，并将项目的信息写入该文件中。同时，它还会生成一个 registry/index.json 文件，其中包含类型为 "registry:ui" 的项目的信息
   await buildRegistry(result.data)
   // 为每个样式生成一个 JSON 文件，public/r/styles/[type]/*json

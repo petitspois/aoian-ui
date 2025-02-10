@@ -1,5 +1,21 @@
-import { Button } from "@/registry/default/ui/button"
+import {
+  Bubble,
+  BubbleAvatar,
+  BubbleContent,
+  BubbleFooter,
+  BubbleHeader,
+  BubbleItem,
+} from "@/registry/default/ui/bubble"
 
 export default function BubbleDemo() {
-  return <Button>Button</Button>
+  return (
+    <Bubble>
+      <BubbleAvatar>AA</BubbleAvatar>
+      <BubbleContent>
+        <BubbleHeader />
+        <BubbleItem>hello world !</BubbleItem>
+        <BubbleFooter />
+      </BubbleContent>
+    </Bubble>
+  )
 }

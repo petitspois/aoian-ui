@@ -1,16 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {
-  ArrowUpCircle,
-  CheckCircle2,
-  Circle,
-  HelpCircle,
-  LucideIcon,
-  XCircle,
-} from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/registry/default/ui/button"
 import {
   Command,
@@ -29,34 +20,28 @@ import {
 type Status = {
   value: string
   label: string
-  icon: LucideIcon
 }
 
 const statuses: Status[] = [
   {
     value: "backlog",
     label: "Backlog",
-    icon: HelpCircle,
   },
   {
     value: "todo",
     label: "Todo",
-    icon: Circle,
   },
   {
     value: "in progress",
     label: "In Progress",
-    icon: ArrowUpCircle,
   },
   {
     value: "done",
     label: "Done",
-    icon: CheckCircle2,
   },
   {
     value: "canceled",
     label: "Canceled",
-    icon: XCircle,
   },
 ]
 
@@ -71,19 +56,8 @@ export default function ComboboxPopover() {
       <p className="text-sm text-muted-foreground">Status</p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-[150px] justify-start"
-          >
-            {selectedStatus ? (
-              <>
-                <selectedStatus.icon className="mr-2 h-4 w-4 shrink-0" />
-                {selectedStatus.label}
-              </>
-            ) : (
-              <>+ Set status</>
-            )}
+          <Button variant="outline" className="w-[150px] justify-start">
+            {selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0" side="right" align="start">
@@ -104,15 +78,7 @@ export default function ComboboxPopover() {
                       setOpen(false)
                     }}
                   >
-                    <status.icon
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        status.value === selectedStatus?.value
-                          ? "opacity-100"
-                          : "opacity-40"
-                      )}
-                    />
-                    <span>{status.label}</span>
+                    {status.label}
                   </CommandItem>
                 ))}
               </CommandGroup>

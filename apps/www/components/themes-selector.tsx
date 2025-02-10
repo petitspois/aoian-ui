@@ -7,16 +7,16 @@ import { THEMES, Theme } from "@/lib/themes"
 import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useThemesConfig } from "@/hooks/use-themes-config"
-import { Skeleton } from "@/registry/new-york/ui/skeleton"
+import { Skeleton } from "@/registry/default/ui/skeleton"
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@/registry/new-york/ui/toggle-group"
+} from "@/registry/default/ui/toggle-group"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/registry/new-york/ui/tooltip"
+} from "@/registry/default/ui/tooltip"
 
 export function ThemesSwitcher({
   themes = THEMES,

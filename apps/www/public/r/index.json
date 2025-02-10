@@ -97,6 +97,9 @@
   {
     "name": "bubble",
     "type": "registry:ui",
+    "registryDependencies": [
+      "avatar"
+    ],
     "files": [
       {
         "path": "ui/bubble.tsx",

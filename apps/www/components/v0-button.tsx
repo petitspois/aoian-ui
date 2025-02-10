@@ -7,12 +7,12 @@ import { useFormStatus } from "react-dom"
 import { toast } from "sonner"
 
 import { cn } from "@/lib/utils"
-import { Button, ButtonProps } from "@/registry/new-york/ui/button"
+import { Button, ButtonProps } from "@/registry/default/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/registry/new-york/ui/tooltip"
+} from "@/registry/default/ui/tooltip"
 import { Style } from "@/registry/registry-styles"
 
 type Size = "default" | "icon"
@@ -29,18 +29,14 @@ function V0Tooltip({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        {style === "new-york" ? (
+        {style === "default" ? (
           <span tabIndex={-1}>{children}</span>
         ) : (
           <>{children}</>
         )}
       </TooltipTrigger>
       <TooltipContent>
-        {style === "new-york" ? (
-          <>Not available in New York</>
-        ) : (
-          <>Open in v0</>
-        )}
+        {style === "default" ? <>Not available in New York</> : <>Open in v0</>}
       </TooltipContent>
     </Tooltip>
   )

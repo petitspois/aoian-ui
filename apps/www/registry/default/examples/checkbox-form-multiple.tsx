@@ -108,7 +108,7 @@ export default function CheckboxReactHookFormMultiple() {
                             }}
                           />
                         </FormControl>
-                        <FormLabel className="font-normal">
+                        <FormLabel className="text-sm font-normal">
                           {item.label}
                         </FormLabel>
                       </FormItem>

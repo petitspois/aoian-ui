@@ -10,7 +10,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/registry/new-york/ui/table"
+} from "@/registry/default/ui/table"
 import { iconLibraries } from "@/registry/registry-icons"
 
 export default function IconsPage() {

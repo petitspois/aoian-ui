@@ -23,18 +23,18 @@ import { trackEvent } from "@/lib/events"
 import { FileTree, createFileTreeForRegistryItemFiles } from "@/lib/registry"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { V0Button } from "@/components/v0-button"
-import { Button } from "@/registry/new-york/ui/button"
+import { Button } from "@/registry/default/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/new-york/ui/collapsible"
+} from "@/registry/default/ui/collapsible"
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@/registry/new-york/ui/resizable"
-import { Separator } from "@/registry/new-york/ui/separator"
+} from "@/registry/default/ui/resizable"
+import { Separator } from "@/registry/default/ui/separator"
 import {
   Sidebar,
   SidebarGroup,
@@ -45,12 +45,12 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
   SidebarProvider,
-} from "@/registry/new-york/ui/sidebar"
-import { Tabs, TabsList, TabsTrigger } from "@/registry/new-york/ui/tabs"
+} from "@/registry/default/ui/sidebar"
+import { Tabs, TabsList, TabsTrigger } from "@/registry/default/ui/tabs"
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@/registry/new-york/ui/toggle-group"
+} from "@/registry/default/ui/toggle-group"
 import { Style } from "@/registry/registry-styles"
 
 type BlockViewerContext = {
@@ -90,7 +90,7 @@ function BlockViewerProvider({
 }) {
   const [view, setView] = React.useState<BlockViewerContext["view"]>("preview")
   const [style, setStyle] =
-    React.useState<BlockViewerContext["style"]>("new-york")
+    React.useState<BlockViewerContext["style"]>("default")
   const [activeFile, setActiveFile] = React.useState<
     BlockViewerContext["activeFile"]
   >(highlightedFiles?.[0].target ?? null)

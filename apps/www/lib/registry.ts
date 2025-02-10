@@ -8,7 +8,7 @@ import { z } from "zod"
 
 import { Style } from "@/registry/registry-styles"
 
-export const DEFAULT_REGISTRY_STYLE = "new-york" satisfies Style["name"]
+export const DEFAULT_REGISTRY_STYLE = "default" satisfies Style["name"]
 
 const memoizedIndex: typeof Index = Object.fromEntries(
   Object.entries(Index).map(([style, items]) => [style, { ...items }])

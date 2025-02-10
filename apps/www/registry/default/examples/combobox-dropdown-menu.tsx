@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Calendar, MoreHorizontal, Tags, Trash, User } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/registry/default/ui/button"
 import {
@@ -57,25 +57,17 @@ export default function ComboboxDropdownMenu() {
         <DropdownMenuContent align="end" className="w-[200px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <User />
-              Assign to...
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Calendar />
-              Set due date...
-            </DropdownMenuItem>
+            <DropdownMenuItem>Assign to...</DropdownMenuItem>
+            <DropdownMenuItem>Set due date...</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <Tags />
-                Apply label
-              </DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger>Apply label</DropdownMenuSubTrigger>
               <DropdownMenuSubContent className="p-0">
                 <Command>
                   <CommandInput
                     placeholder="Filter label..."
                     autoFocus={true}
+                    className="h-9"
                   />
                   <CommandList>
                     <CommandEmpty>No label found.</CommandEmpty>
@@ -99,7 +91,6 @@ export default function ComboboxDropdownMenu() {
             </DropdownMenuSub>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-600">
-              <Trash />
               Delete
               <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
             </DropdownMenuItem>

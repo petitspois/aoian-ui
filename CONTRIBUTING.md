@@ -28,9 +28,6 @@ apps
         ├── default
         │   ├── example
         │   └── ui
-        └── new-york
-            ├── example
-            └── ui
 packages
 └── cli
 ```
@@ -148,9 +145,6 @@ apps
         ├── default
         │   ├── example
         │   └── ui
-        └── new-york
-            ├── example
-            └── ui
 ```
 
 When adding or modifying components, please ensure that:

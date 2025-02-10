@@ -247,7 +247,7 @@ export async function getProjectConfig(
     $schema: "https://ui.shadcn.com/schema.json",
     rsc: projectInfo.isRSC,
     tsx: projectInfo.isTsx,
-    style: "new-york",
+    style: "default",
     tailwind: {
       config: projectInfo.tailwindConfigFile,
       baseColor: "zinc",

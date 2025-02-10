@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "examples/bubble-demo.tsx",
-      "content": "import { Button } from \"@/registry/default/ui/button\"\n\nexport default function BubbleDemo() {\n  return <Button>Button</Button>\n}\n",
+      "content": "import {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleFooter,\n  BubbleHeader,\n  BubbleItem,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleDemo() {\n  return (\n    <Bubble>\n      <BubbleAvatar>AA</BubbleAvatar>\n      <BubbleContent>\n        <BubbleHeader />\n        <BubbleItem>hello world !</BubbleItem>\n        <BubbleFooter />\n      </BubbleContent>\n    </Bubble>\n  )\n}\n",
       "type": "registry:example",
       "target": ""
     }

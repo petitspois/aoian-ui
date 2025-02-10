@@ -16,7 +16,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/registry/new-york/ui/tabs"
+} from "@/registry/default/ui/tabs"
 import { styles } from "@/registry/registry-styles"
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -49,7 +49,6 @@ export function ComponentPreview({
 
   const Preview = React.useMemo(() => {
     const Component = Index[config.style][name]?.component
-
     if (!Component) {
       return (
         <p className="text-sm text-muted-foreground">

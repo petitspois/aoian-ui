@@ -15,7 +15,7 @@ export async function editInV0({
   style?: Style["name"]
   url: string
 }) {
-  style = style ?? "new-york"
+  style = style ?? "default"
   try {
     const registryItem = await getRegistryItem(name, style)
 
@@ -39,9 +39,9 @@ export async function editInV0({
 
     // Replace `@/registry/new-york/` in files.
     registryItem.files = registryItem.files?.map((file) => {
-      if (file.content?.includes("@/registry/new-york/ui")) {
+      if (file.content?.includes("@/registry/default/ui")) {
         file.content = file.content?.replaceAll(
-          "@/registry/new-york/ui",
+          "@/registry/default/ui",
           "@/components/ui"
         )
       }

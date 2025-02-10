@@ -30,7 +30,7 @@ To update an existing project to use the new CLI, update your `components.json` 
 ```json showLineNumbers {7-13} title="components.json"
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
+  "style": "default",
   "tailwind": {
     // ...
   },
@@ -495,7 +495,7 @@ We are introducing a new concept called _Style_.
 
 _You can think of style as the visual foundation: shapes, icons, animations & typography._ A style comes with its own set of components, animations, icons and more.
 
-We are shipping two styles: `default` and `new-york` (with more coming soon).
+We are shipping two styles: `default` and `default` (with more coming soon).
 
 <Image
   src="/images/style.jpg"
@@ -507,13 +507,13 @@ We are shipping two styles: `default` and `new-york` (with more coming soon).
 
 The `default` style is the one you are used to. It's the one we've been using since the beginning of this project. It uses `lucide-react` for icons and `tailwindcss-animate` for animations.
 
-The `new-york` style is a new style. It ships with smaller buttons, cards with shadows and a new set of icons from [Radix Icons](https://icons.radix-ui.com).
+The `default` style is a new style. It ships with smaller buttons, cards with shadows and a new set of icons from [Radix Icons](https://icons.radix-ui.com).
 
 When you run the `init` command, you will be asked which style you would like to use. This is saved in your `components.json` file.
 
 ```json title="components.json"
 {
-  "style": "new-york"
+  "style": "default"
 }
 ```
 

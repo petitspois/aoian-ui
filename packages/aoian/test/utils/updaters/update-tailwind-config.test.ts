@@ -10,7 +10,7 @@ import {
 
 const SHARED_CONFIG = {
   $schema: "https://ui.shadcn.com/schema.json",
-  style: "new-york",
+  style: "default",
   rsc: true,
   tsx: true,
   tailwind: {

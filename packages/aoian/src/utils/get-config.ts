@@ -74,7 +74,7 @@ export async function getConfig(cwd: string) {
 
   // Set default icon library if not provided.
   if (!config.iconLibrary) {
-    config.iconLibrary = config.style === "new-york" ? "radix" : "lucide"
+    config.iconLibrary = "lucide"
   }
 
   return await resolveConfigPaths(cwd, config)
