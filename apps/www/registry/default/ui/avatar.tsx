@@ -6,17 +6,19 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 import { cn } from "@/lib/utils"
 
 const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    )}
-    {...props}
-  />
+  <AvatarPrimitive.Root asChild>
+    <div
+      ref={ref}
+      className={cn(
+        "bg-muted relative inline-flex h-10 w-10 items-center whitespace-nowrap rounded-full align-middle text-xl",
+        className
+      )}
+      {...props}
+    />
+  </AvatarPrimitive.Root>
 ))
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
@@ -24,11 +26,13 @@ const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
+  <span className={"h-full w-full overflow-hidden rounded-full"}>
+    <AvatarPrimitive.Image
+      ref={ref}
+      className={cn("aspect-square h-full w-full", className)}
+      {...props}
+    />
+  </span>
 ))
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
@@ -47,4 +51,19 @@ const AvatarFallback = React.forwardRef<
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-export { Avatar, AvatarImage, AvatarFallback }
+const AvatarTrigger = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div">
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "inline-flex absolute h-5 w-5 items-center justify-center rounded-full -right-1 -bottom-1 bg-background",
+      className
+    )}
+    {...props}
+  />
+))
+AvatarTrigger.displayName = "AvatarTrigger"
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarTrigger }
