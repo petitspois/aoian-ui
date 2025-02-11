@@ -3144,6 +3144,21 @@ export const Index: Record<string, any> = {
       source: "",
       meta: undefined,
     },
+    "avatar-trigger": {
+      name: "avatar-trigger",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["avatar"],
+      files: [{
+        path: "registry/default/examples/avatar-trigger.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/avatar-trigger.tsx")),
+      source: "",
+      meta: undefined,
+    },
     "badge-demo": {
       name: "badge-demo",
       description: "",

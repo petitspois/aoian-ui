@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-trigger",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "avatar"
+  ],
+  "files": [
+    {
+      "path": "examples/avatar-trigger.tsx",
+      "content": "import { Bird, Star } from \"lucide-react\"\n\nimport {\n  Avatar,\n  AvatarFallback,\n  AvatarImage,\n  AvatarTrigger,\n} from \"@/registry/default/ui/avatar\"\n\nexport default function AvatarTriggerDemo() {\n  return (\n    <div className={\"space-x-5\"}>\n      <Avatar>\n        <AvatarTrigger>\n          <Star />\n        </AvatarTrigger>\n        <AvatarFallback className={\"text-base\"}>AA</AvatarFallback>\n      </Avatar>\n      <Avatar>\n        <AvatarFallback>\n          <Bird />\n        </AvatarFallback>\n        <AvatarTrigger>\n          <Star />\n        </AvatarTrigger>\n      </Avatar>\n      <Avatar>\n        <AvatarImage\n          src=\"https://avatars.githubusercontent.com/u/9461149?s=48&v=4\"\n          alt=\"@petitspois\"\n        />\n        <AvatarFallback>\n          <Bird />\n        </AvatarFallback>\n        <AvatarTrigger className=\"border-secondary border\">\n          <Star fill={\"black\"} strokeWidth={0} />\n        </AvatarTrigger>\n      </Avatar>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

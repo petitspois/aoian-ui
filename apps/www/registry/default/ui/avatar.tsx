@@ -13,7 +13,7 @@ const Avatar = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "bg-muted relative inline-flex h-10 w-10 items-center whitespace-nowrap rounded-full align-middle text-xl",
+        "bg-blue-500 relative inline-flex h-10 w-10 items-center whitespace-nowrap rounded-full align-middle text-xl",
         className
       )}
       {...props}
@@ -26,7 +26,7 @@ const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => (
-  <span className={"h-full w-full overflow-hidden rounded-full"}>
+  <span className={"overflow-hidden rounded-full"}>
     <AvatarPrimitive.Image
       ref={ref}
       className={cn("aspect-square h-full w-full", className)}
@@ -43,7 +43,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      "flex h-full w-full items-center justify-center rounded-full text-white",
       className
     )}
     {...props}
@@ -58,7 +58,7 @@ const AvatarTrigger = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "inline-flex absolute h-5 w-5 items-center justify-center rounded-full -right-1 -bottom-1 bg-background",
+      "absolute bg-[#e3b341] -bottom-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full [&>svg]:size-3",
       className
     )}
     {...props}

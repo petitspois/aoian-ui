@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "examples/avatar-demo.tsx",
-      "content": "import {\n  Avatar,\n  AvatarFallback,\n  AvatarImage,\n} from \"@/registry/default/ui/avatar\"\n\nexport default function AvatarDemo() {\n  return (\n    <Avatar>\n      <AvatarImage src=\"https://github.com/shadcn.png\" alt=\"@shadcn\" />\n      <AvatarFallback>CN</AvatarFallback>\n    </Avatar>\n  )\n}\n",
+      "content": "import { Bird, Star } from \"lucide-react\"\n\nimport {\n  Avatar,\n  AvatarFallback,\n  AvatarImage,\n  AvatarTrigger,\n} from \"@/registry/default/ui/avatar\"\n\nexport default function AvatarDemo() {\n  return (\n    <div className={\"space-x-5\"}>\n      <Avatar>\n        <AvatarFallback className={\"text-base\"}>AA</AvatarFallback>\n      </Avatar>\n      <Avatar>\n        <AvatarFallback>\n          <Bird />\n        </AvatarFallback>\n      </Avatar>\n      <Avatar>\n        <AvatarImage src=\"https://github.com/shadcn.png\" alt=\"@petitspois\" />\n      </Avatar>\n    </div>\n  )\n}\n",
       "type": "registry:example",
       "target": ""
     }

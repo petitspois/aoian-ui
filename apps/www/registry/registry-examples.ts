@@ -68,6 +68,17 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "avatar-trigger",
+    type: "registry:example",
+    registryDependencies: ["avatar"],
+    files: [
+      {
+        path: "examples/avatar-trigger.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "badge-demo",
     type: "registry:example",
     registryDependencies: ["badge"],
