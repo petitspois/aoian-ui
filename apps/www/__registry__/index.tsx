@@ -3324,21 +3324,6 @@ export const Index: Record<string, any> = {
       source: "",
       meta: undefined,
     },
-    "bubble-demo": {
-      name: "bubble-demo",
-      description: "",
-      type: "registry:example",
-      registryDependencies: ["button"],
-      files: [{
-        path: "registry/default/examples/bubble-demo.tsx",
-        type: "registry:example",
-        target: ""
-      }],
-      categories: undefined,
-      component: React.lazy(() => import("@/registry/default/examples/bubble-demo.tsx")),
-      source: "",
-      meta: undefined,
-    },
     "button-secondary": {
       name: "button-secondary",
       description: "",
@@ -3471,6 +3456,51 @@ export const Index: Record<string, any> = {
       }],
       categories: undefined,
       component: React.lazy(() => import("@/registry/default/examples/button-as-child.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-demo": {
+      name: "bubble-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-demo.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-placement-avatar": {
+      name: "bubble-placement-avatar",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-placement-avatar.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-placement-avatar.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-layout": {
+      name: "bubble-layout",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-layout.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-layout.tsx")),
       source: "",
       meta: undefined,
     },

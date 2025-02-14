@@ -200,17 +200,6 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "bubble-demo",
-    type: "registry:example",
-    registryDependencies: ["button"],
-    files: [
-      {
-        path: "examples/bubble-demo.tsx",
-        type: "registry:example",
-      },
-    ],
-  },
-  {
     name: "button-secondary",
     type: "registry:example",
     registryDependencies: ["button"],
@@ -305,6 +294,39 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/button-as-child.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-demo",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-placement-avatar",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-placement-avatar.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-layout",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-layout.tsx",
         type: "registry:example",
       },
     ],

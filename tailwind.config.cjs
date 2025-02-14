@@ -57,12 +57,16 @@ module.exports = {
         chat: {
           DEFAULT: "hsl(var(--chat-background))",
           foreground: "hsl(var(--chat-foreground))",
+          secondary: "hsl(var(--chat-secondary-background))",
+          "secondary-foreground": "hsl(var(--chat-secondary-foreground))",
           primary: "hsl(var(--chat-primary-background))",
           "primary-foreground": "hsl(var(--chat-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+          border: "hsl(var(--chat-border))",
+          bubble: {
+            DEFAULT: "hsl(var(--chat-bubble-background))",
+            foreground: "hsl(var(--chat-bubble-foreground))",
+            border: "hsl(var(--chat-bubble-border))",
+          }
         },
       },
       borderRadius: {

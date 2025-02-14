@@ -126,7 +126,10 @@ export function ComponentPreview({
             </TabsList>
           )}
         </div>
-        <TabsContent value="preview" className="relative rounded-md bg-chat">
+        <TabsContent
+          value="preview"
+          className="relative rounded-md bg-chat-secondary"
+        >
           <div className="flex items-center justify-between p-4">
             <StyleSwitcher />
             <div className="flex items-center gap-2">

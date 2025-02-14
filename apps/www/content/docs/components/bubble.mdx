@@ -6,3 +6,69 @@ component: true
 ---
 
 <ComponentPreview name="bubble-demo" description="A bubble" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+    ```bash
+    npx aoian@latest add bubble
+    ```
+
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+    <Steps>
+
+      <Step>Copy and paste the following code into your project.</Step>
+
+      <ComponentSource name="bubble" />
+
+      <Step>Update the import paths to match your project setup.</Step>
+
+    </Steps>
+
+  </TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  Bubble,
+  BubbleContent,
+  BubbleWrapper,
+} from "@/registry/default/ui/bubble"
+```
+
+```tsx
+<Bubble>
+  <BubbleWrapper>
+    <BubbleContent>hello world !</BubbleContent>
+  </BubbleWrapper>
+</Bubble>
+```
+
+## Examples
+
+### Placement and avatar
+
+<ComponentPreview
+  name="bubble-placement-avatar"
+  description="Set custom avatar by avatar prop, set the placement of the message by placement prop, which has two preset values: start and end."
+/>
+
+### Header and footer
+
+<ComponentPreview
+  name="bubble-layout"
+  description="Use header and footer properties to set the header and footer of the bubble content."
+/>

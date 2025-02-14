@@ -47,7 +47,14 @@ const Bubble = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & BubbleContextProps
 >(
   (
-    { placement, loading, typing, onTypingComplete, className, ...props },
+    {
+      placement = "start",
+      loading,
+      typing,
+      onTypingComplete,
+      className,
+      ...props
+    },
     ref
   ) => {
     const contextValue = React.useMemo<BubbleContextProps>(
@@ -62,8 +69,9 @@ const Bubble = React.forwardRef<
     return (
       <BubbleContext.Provider value={contextValue}>
         <div
-          className={cn("group/bubble-wrapper flex gap-3", className)}
+          className={cn("group flex gap-3 data-[placement=end]:flex-row-reverse", className)}
           ref={ref}
+          data-placement={placement}
           {...props}
         />
       </BubbleContext.Provider>
@@ -79,7 +87,6 @@ type BubbleAvatarProps = {
   alt?: string
   children?: React.ReactNode
 }
-
 const BubbleAvatar = React.forwardRef<
   React.ElementRef<typeof Avatar>,
   BubbleAvatarProps
@@ -104,33 +111,9 @@ const BubbleHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  return <div ref={ref} className={cn("", className)} {...props} />
+  return <div ref={ref} className={cn("text-sm", className)} {...props} />
 })
 BubbleHeader.displayName = "BubbleHeader"
-
-const BubbleContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return <div ref={ref} className={cn("flex flex-col", className)} {...props} />
-})
-
-const BubbleItem = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "bg-chat-primary text-chat-primary-foreground rounded-xl px-4 py-3",
-        className
-      )}
-      {...props}
-    />
-  )
-})
-BubbleItem.displayName = "BubbleItem"
 
 const BubbleFooter = React.forwardRef<
   HTMLDivElement,
@@ -140,11 +123,68 @@ const BubbleFooter = React.forwardRef<
 })
 BubbleFooter.displayName = "BubbleFooter"
 
+const BubbleWrapper = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn("flex flex-col min-w-0 max-w-full", className)}
+      {...props}
+    />
+  )
+})
+BubbleWrapper.displayName = "BubbleWrapper"
+
+const bubbleContentVariants = cva("px-4 py-2 text-chat-foreground", {
+  variants: {
+    variant: {
+      filled: "bg-chat-bubble text-chat-bubble-foreground",
+      outlined: "border border-chat-bubble-border",
+      shadow: "shadow dark:bg-chat-bubble",
+    },
+    shape: {
+      default: "rounded-xl",
+      round: "rounded-full",
+      corner: "rounded-xl",
+    },
+  },
+  defaultVariants: {
+    variant: "filled",
+    shape: "default",
+  },
+})
+
+export interface BubbleContentProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof bubbleContentVariants> {}
+
+const BubbleContent = React.forwardRef<HTMLDivElement, BubbleContentProps>(
+  ({ className, variant, shape, ...props }, ref) => {
+    const { placement } = useBubble()
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          bubbleContentVariants({ variant, shape }),
+          shape === "corner" && placement === "end" && "rounded-tr-sm",
+          shape === "corner" && placement === "start" && "rounded-tl-sm",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
+BubbleContent.displayName = "BubbleContent"
+
 export {
   Bubble,
   BubbleAvatar,
   BubbleHeader,
+  BubbleWrapper,
   BubbleContent,
-  BubbleItem,
   BubbleFooter,
+  useBubble,
 }

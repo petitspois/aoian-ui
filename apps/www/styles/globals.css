@@ -39,8 +39,14 @@
     --sidebar-ring: 240 5% 64.9%;
     --chat-background: 225 40% 96%;
     --chat-foreground: 235 44% 15%;
+    --chat-secondary-background: 0 0% 100% ;
+    --chat-secondary-foreground: 78 89% 105% ;
     --chat-primary-background: 0 0% 100%;
     --chat-primary-foreground: 217 71% 15%;
+    --chat-border: 217 71% 15%;
+    --chat-bubble-background: 220 13% 95%;
+    --chat-bubble-foreground: 216 15% 36%;
+    --chat-bubble-border: 230 13% 91%;
   }
 
   .dark {
@@ -76,10 +82,16 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 240 4.9% 83.9%;
-    --chat-background: 0 0% 11%;
-    --chat-foreground: 0 0% 100%;
+    --chat-background: 210 8% 9%;
+    --chat-foreground: 300 2% 92%;
+    --chat-secondary-background: 240 1% 14%;
+    --chat-secondary-foreground: 0 1% 74%;
     --chat-primary-background: 0 0% 18%;
     --chat-primary-foreground: 0 0% 100%;
+    --chat-border: 0 1% 28%;
+    --chat-bubble-background: 0 0% 20%;
+    --chat-bubble-foreground: 0 1% 79%;
+    --chat-bubble-border: 0 1% 28%;
   }
 }
 
