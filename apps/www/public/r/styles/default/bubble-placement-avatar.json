@@ -9,7 +9,7 @@
   "files": [
     {
       "path": "examples/bubble-placement-avatar.tsx",
-      "content": "import {\n  Bubble,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleDemo() {\n  return (\n    <Bubble>\n      <BubbleWrapper>\n        <BubbleContent>hello world !</BubbleContent>\n      </BubbleWrapper>\n    </Bubble>\n  )\n}\n",
+      "content": "import { Bot } from \"lucide-react\"\n\nimport {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleDemo() {\n  return (\n    <div className=\"grow space-y-4 self-start\">\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent>Good morning, how are you?</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble>\n        <BubbleAvatar placeholder />\n        <BubbleWrapper>\n          <BubbleContent>What a beautiful day!</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble placement=\"end\">\n        <BubbleAvatar\n          src=\"https://avatars.githubusercontent.com/u/9461149?s=48&v=4\"\n          alt=\"@petitspois\"\n        />\n        <BubbleWrapper>\n          <BubbleContent>Hi, good morning, I'm fine!</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble placement=\"end\" avatarPlaceholder>\n        <BubbleWrapper>\n          <BubbleContent>Thank you!</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n    </div>\n  )\n}\n",
       "type": "registry:example",
       "target": ""
     }

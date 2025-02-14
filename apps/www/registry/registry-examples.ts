@@ -323,7 +323,7 @@ export const examples: Registry["items"] = [
   {
     name: "bubble-layout",
     type: "registry:example",
-    registryDependencies: ["bubble"],
+    registryDependencies: ["bubble", "button"],
     files: [
       {
         path: "examples/bubble-layout.tsx",
