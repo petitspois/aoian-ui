@@ -39,16 +39,17 @@ type BubbleContextProps = {
   messageRender?: (content: string) => React.ReactNode
 }
 
+type TypingConfigProps = {
+  typingConfig: [
+    enableTyping: boolean,
+    step: number,
+    interval: number,
+    suffix: React.ReactNode | null
+  ]
+}
+
 const BubbleContext = React.createContext<
-  | (BubbleContextProps & {
-      typingConfig: [
-        enableTyping: boolean,
-        step: number,
-        interval: number,
-        suffix: React.ReactNode
-      ]
-    })
-  | null
+  (BubbleContextProps & TypingConfigProps) | null
 >(null)
 
 function useBubble() {
@@ -77,7 +78,9 @@ const Bubble = React.forwardRef<
     },
     ref
   ) => {
-    const typingConfig = React.useMemo(() => {
+    const typingConfig = React.useMemo<
+      TypingConfigProps["typingConfig"]
+    >(() => {
       if (!typing) {
         return [false, 0, 0, null]
       }
@@ -93,7 +96,7 @@ const Bubble = React.forwardRef<
       return [true, baseConfig.step, baseConfig.interval, baseConfig.suffix]
     }, [typing])
 
-    const contextValue = React.useMemo<BubbleContextProps>(
+    const contextValue = React.useMemo<BubbleContextProps & TypingConfigProps>(
       () => ({
         placement,
         avatarPlaceholder,
@@ -162,7 +165,7 @@ const BubbleAvatar = React.forwardRef<
     ref
   ) => {
     if (placeholder) {
-      return <div className={cn("h-8 w-8 invisible", className)}></div>
+      return <div className={cn("invisible h-8 w-8", className)}></div>
     }
     return (
       <Avatar className={cn("h-8 w-8", className)} ref={ref}>
@@ -195,7 +198,7 @@ const BubbleHeader = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("text-sm text-chat-foreground mb-1", className)}
+      className={cn("text-chat-foreground mb-1 text-sm", className)}
       {...props}
     />
   )
@@ -206,7 +209,7 @@ const BubbleFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  return <div ref={ref} className={cn("text-sm mt-2", className)} {...props} />
+  return <div ref={ref} className={cn("mt-2 text-sm", className)} {...props} />
 })
 BubbleFooter.displayName = "BubbleFooter"
 
@@ -217,7 +220,7 @@ const BubbleWrapper = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("flex flex-col min-w-0 max-w-full", className)}
+      className={cn("flex min-w-0 max-w-full flex-col", className)}
       {...props}
     />
   )
@@ -229,7 +232,7 @@ const bubbleContentVariants = cva("text-chat-foreground px-4 py-3 text-sm", {
     variant: {
       filled: "bg-chat-bubble text-chat-bubble-foreground",
       outlined: "border-chat-bubble-border border",
-      shadow: "shadow dark:bg-chat-bubble",
+      shadow: "dark:bg-chat-bubble shadow",
     },
     shape: {
       default: "rounded-xl",

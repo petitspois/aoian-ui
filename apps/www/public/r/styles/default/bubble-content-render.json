@@ -12,7 +12,7 @@
   "files": [
     {
       "path": "examples/bubble-content-render.tsx",
-      "content": "import {\n  Bubble,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleContentRender() {\n  return (\n    <Bubble>\n      <BubbleWrapper>\n        <BubbleContent>hello world !</BubbleContent>\n      </BubbleWrapper>\n    </Bubble>\n  )\n}\n",
+      "content": "import * as React from \"react\"\nimport markdownit from \"markdown-it\"\n\nimport {\n  Bubble,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nconst md = markdownit({ html: true, breaks: true })\n\nconst text = `\n> Render as markdown content to show rich text!\n\nLink: [Aoian UI](https://ui.aoian.chat)\n`.trim()\n\nconst renderMarkdown = (content: string) => (\n  <div dangerouslySetInnerHTML={{ __html: md.render(content) }} />\n)\n\nexport default function BubbleContentRender() {\n  const [renderKey, setRenderKey] = React.useState(0)\n\n  React.useEffect(() => {\n    const id = setTimeout(() => {\n      setRenderKey((prev) => prev + 1)\n    }, text.length * 100 + 2000)\n\n    return () => {\n      clearTimeout(id)\n    }\n  }, [renderKey])\n  return (\n    <div key={renderKey}>\n      <Bubble typing messageRender={renderMarkdown}>\n        <BubbleWrapper>\n          <BubbleContent>{text}</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n    </div>\n  )\n}\n",
       "type": "registry:example",
       "target": ""
     }
