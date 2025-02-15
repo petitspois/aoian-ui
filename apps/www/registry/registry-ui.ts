@@ -81,7 +81,7 @@ export const ui: Registry["items"] = [
   {
     name: "bubble",
     type: "registry:ui",
-    registryDependencies: ["avatar"],
+    registryDependencies: ["avatar", "loading", "use-typed-effect"],
     files: [
       {
         path: "ui/bubble.tsx",
@@ -302,6 +302,16 @@ export const ui: Registry["items"] = [
     files: [
       {
         path: "ui/label.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
+  {
+    name: "loading",
+    type: "registry:ui",
+    files: [
+      {
+        path: "ui/loading.tsx",
         type: "registry:ui",
       },
     ],

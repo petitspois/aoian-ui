@@ -1,0 +1,56 @@
+---
+title: Loading
+description: A loading component for chat.
+featured: true
+component: true
+---
+
+<ComponentPreview name="loading-demo" description="A Loading" />
+
+## Installation
+
+<Tabs defaultValue="cli">
+
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+
+    ```bash
+    npx aoian@latest add loading
+    ```
+
+  </TabsContent>
+
+  <TabsContent value="manual">
+
+    <Steps>
+
+      <Step>Copy and paste the following code into your project.</Step>
+
+      <ComponentSource name="loading" />
+
+      <Step>Update the import paths to match your project setup.</Step>
+
+    </Steps>
+
+  </TabsContent>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import { Loading } from "@/registry/default/ui/loading"
+```
+
+```tsx
+<Loading />
+```
+
+### Props
+
+| Property | Type                    | Description              |
+| -------- | ----------------------- | ------------------------ |
+| `size`   | `sm`, `lg` or `default` | The size of the loading. |

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loading-demo",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "loading"
+  ],
+  "files": [
+    {
+      "path": "examples/loading-demo.tsx",
+      "content": "import { Loading } from \"@/registry/default/ui/loading\"\n\nexport default function LoadingDemo() {\n  return <Loading size=\"default\" />\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

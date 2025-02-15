@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble-typing",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "bubble",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "examples/bubble-typing.tsx",
+      "content": "import React from \"react\"\nimport { Bot } from \"lucide-react\"\n\nimport {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\nimport { Button } from \"@/registry/default/ui/button\"\n\nconst text = \"Aoian UI love you! \"\n\nexport default function BubbleTyping() {\n  const [repeat, setRepeat] = React.useState(1)\n  return (\n    <div className={\"grow space-y-4\"}>\n      <Bubble typing={{ step: 2, interval: 50 }}>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent>{text.repeat(repeat)}</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble typing={{ step: 2, interval: 50, suffix: <>💗</> }}>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent>{text.repeat(repeat)}</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n\n      <Button\n        onClick={() => {\n          setRepeat((ori) => (ori < 5 ? ori + 1 : 1))\n        }}\n      >\n        Repeat {repeat} Times\n      </Button>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

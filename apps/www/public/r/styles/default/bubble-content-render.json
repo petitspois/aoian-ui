@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble-content-render",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "dependencies": [
+    "markdown-it"
+  ],
+  "registryDependencies": [
+    "bubble"
+  ],
+  "files": [
+    {
+      "path": "examples/bubble-content-render.tsx",
+      "content": "import {\n  Bubble,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleContentRender() {\n  return (\n    <Bubble>\n      <BubbleWrapper>\n        <BubbleContent>hello world !</BubbleContent>\n      </BubbleWrapper>\n    </Bubble>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

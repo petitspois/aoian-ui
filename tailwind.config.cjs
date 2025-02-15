@@ -66,7 +66,7 @@ module.exports = {
             DEFAULT: "hsl(var(--chat-bubble-background))",
             foreground: "hsl(var(--chat-bubble-foreground))",
             border: "hsl(var(--chat-bubble-border))",
-          }
+          },
         },
       },
       borderRadius: {
@@ -88,11 +88,30 @@ module.exports = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "loading-move": {
+          "0%": { transform: "translateY(0)" },
+          "10%": { transform: "translateY(4px)" },
+          "20%": { transform: "translateY(0px)" },
+          "30%": { transform: "translateY(-4px)" },
+          "40%": { transform: "translateY(0px)" },
+        },
+        "loading-move-min": {
+          "0%": { transform: "translateY(0)" },
+          "10%": { transform: "translateY(1px)" },
+          "20%": { transform: "translateY(0px)" },
+          "30%": { transform: "translateY(-1px)" },
+          "40%": { transform: "translateY(0px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "loading-move": "loading-move 2s linear infinite",
+        "loading-move-min": "loading-move-min 2s linear infinite",
+      },
+      transitionDelay: {
+        400: "400ms",
       },
     },
   },

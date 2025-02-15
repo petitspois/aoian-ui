@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-typed-effect",
+  "type": "registry:hook",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "files": [
+    {
+      "path": "hooks/use-typed-effect.ts",
+      "content": "import * as React from \"react\"\n\nfunction isString(str: any): str is string {\n  return typeof str === \"string\"\n}\n\n/**\n * Return typed content and typing status when typing is enabled.\n * Or return content directly.\n */\nconst useTypedEffect = (\n  content: React.ReactNode | object,\n  typingEnabled: boolean,\n  typingStep: number,\n  typingInterval: number\n): [typedContent: React.ReactNode | object, isTyping: boolean] => {\n  const [prevContent, setPrevContent] = React.useState<\n    React.ReactNode | object\n  >(\"\")\n  const [typingIndex, setTypingIndex] = React.useState<number>(1)\n\n  const mergedTypingEnabled = typingEnabled && isString(content)\n\n  // Reset typing index when content changed\n  React.useLayoutEffect(() => {\n    setPrevContent(content)\n    if (!mergedTypingEnabled && isString(content)) {\n      setTypingIndex(content.length)\n    } else if (\n      isString(content) &&\n      isString(prevContent) &&\n      content.indexOf(prevContent) !== 0\n    ) {\n      setTypingIndex(1)\n    }\n  }, [content])\n\n  // Start typing\n  React.useEffect(() => {\n    if (mergedTypingEnabled && typingIndex < content.length) {\n      const id = setTimeout(() => {\n        setTypingIndex((prev) => prev + typingStep)\n      }, typingInterval)\n\n      return () => {\n        clearTimeout(id)\n      }\n    }\n  }, [typingIndex, typingEnabled, content])\n\n  const mergedTypingContent = mergedTypingEnabled\n    ? content.slice(0, typingIndex)\n    : content\n\n  return [\n    mergedTypingContent,\n    mergedTypingEnabled && typingIndex < content.length,\n  ]\n}\n\nexport { useTypedEffect }\n",
+      "type": "registry:hook",
+      "target": ""
+    }
+  ]
+}

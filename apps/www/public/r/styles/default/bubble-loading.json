@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble-loading",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "bubble"
+  ],
+  "files": [
+    {
+      "path": "examples/bubble-loading.tsx",
+      "content": "import React from \"react\"\nimport { Bot } from \"lucide-react\"\n\nimport {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\nimport { Switch } from \"@/registry/default/ui/switch\"\n\nexport default function BubbleLoading() {\n  const [loading, setLoading] = React.useState<boolean>(true)\n  return (\n    <div className={\"space-y-4\"}>\n      <Bubble>\n        <BubbleAvatar loading={loading}>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent>Good morning, how are you?</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent loading={loading}>\n            Good morning, how are you?\n          </BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n\n      <div className=\"inline-flex items-center gap-2\">\n        <span>Loading state:</span>\n        <Switch checked={loading} onCheckedChange={setLoading} />\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

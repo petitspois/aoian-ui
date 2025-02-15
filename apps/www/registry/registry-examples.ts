@@ -332,6 +332,40 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "bubble-loading",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-loading.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-typing",
+    type: "registry:example",
+    registryDependencies: ["bubble", "button"],
+    files: [
+      {
+        path: "examples/bubble-typing.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-content-render",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    dependencies: ["markdown-it"],
+    files: [
+      {
+        path: "examples/bubble-content-render.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "calendar-demo",
     type: "registry:example",
     registryDependencies: ["calendar"],
@@ -881,6 +915,17 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/label-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "loading-demo",
+    type: "registry:example",
+    registryDependencies: ["loading"],
+    files: [
+      {
+        path: "examples/loading-demo.tsx",
         type: "registry:example",
       },
     ],

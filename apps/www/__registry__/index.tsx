@@ -84,7 +84,7 @@ export const Index: Record<string, any> = {
       name: "bubble",
       description: "",
       type: "registry:ui",
-      registryDependencies: ["avatar"],
+      registryDependencies: ["avatar","loading","use-typed-effect"],
       files: [{
         path: "registry/default/ui/bubble.tsx",
         type: "registry:ui",
@@ -377,6 +377,21 @@ export const Index: Record<string, any> = {
       }],
       categories: undefined,
       component: React.lazy(() => import("@/registry/default/ui/label.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "loading": {
+      name: "loading",
+      description: "",
+      type: "registry:ui",
+      registryDependencies: undefined,
+      files: [{
+        path: "registry/default/ui/loading.tsx",
+        type: "registry:ui",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/ui/loading.tsx")),
       source: "",
       meta: undefined,
     },
@@ -2344,6 +2359,21 @@ export const Index: Record<string, any> = {
       source: "",
       meta: undefined,
     },
+    "use-typed-effect": {
+      name: "use-typed-effect",
+      description: "",
+      type: "registry:hook",
+      registryDependencies: undefined,
+      files: [{
+        path: "registry/default/hooks/use-typed-effect.ts",
+        type: "registry:hook",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/hooks/use-typed-effect.ts")),
+      source: "",
+      meta: undefined,
+    },
     "sink": {
       name: "sink",
       description: "",
@@ -3493,7 +3523,7 @@ export const Index: Record<string, any> = {
       name: "bubble-layout",
       description: "",
       type: "registry:example",
-      registryDependencies: ["bubble"],
+      registryDependencies: ["bubble","button"],
       files: [{
         path: "registry/default/examples/bubble-layout.tsx",
         type: "registry:example",
@@ -3501,6 +3531,51 @@ export const Index: Record<string, any> = {
       }],
       categories: undefined,
       component: React.lazy(() => import("@/registry/default/examples/bubble-layout.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-loading": {
+      name: "bubble-loading",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-loading.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-loading.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-typing": {
+      name: "bubble-typing",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble","button"],
+      files: [{
+        path: "registry/default/examples/bubble-typing.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-typing.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-content-render": {
+      name: "bubble-content-render",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-content-render.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-content-render.tsx")),
       source: "",
       meta: undefined,
     },
@@ -4251,6 +4326,21 @@ export const Index: Record<string, any> = {
       }],
       categories: undefined,
       component: React.lazy(() => import("@/registry/default/examples/label-demo.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "loading-demo": {
+      name: "loading-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["loading"],
+      files: [{
+        path: "registry/default/examples/loading-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/loading-demo.tsx")),
       source: "",
       meta: undefined,
     },

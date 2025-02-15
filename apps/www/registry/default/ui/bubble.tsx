@@ -1,15 +1,17 @@
+"use client"
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Star } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { useTypedEffect } from "@/registry/default/hooks/use-typed-effect"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
   AvatarTrigger,
 } from "@/registry/default/ui/avatar"
-import { Button } from "@/registry/default/ui/button"
+import { Loading } from "@/registry/default/ui/loading"
 
 export interface TypingOption {
   /**
@@ -30,12 +32,24 @@ type BubbleContextProps = {
   placement?: "start" | "end"
   loading?: boolean
   typing?: boolean | TypingOption
+  onUpdate?: VoidFunction
   onTypingComplete?: VoidFunction
   className?: string
   avatarPlaceholder?: boolean
+  messageRender?: (content: string) => React.ReactNode
 }
 
-const BubbleContext = React.createContext<BubbleContextProps | null>(null)
+const BubbleContext = React.createContext<
+  | (BubbleContextProps & {
+      typingConfig: [
+        enableTyping: boolean,
+        step: number,
+        interval: number,
+        suffix: React.ReactNode
+      ]
+    })
+  | null
+>(null)
 
 function useBubble() {
   const context = React.useContext(BubbleContext)
@@ -56,22 +70,50 @@ const Bubble = React.forwardRef<
       typing,
       avatarPlaceholder,
       onTypingComplete,
+      messageRender,
       className,
       children,
       ...props
     },
     ref
   ) => {
+    const typingConfig = React.useMemo(() => {
+      if (!typing) {
+        return [false, 0, 0, null]
+      }
+      let baseConfig: Required<TypingOption> = {
+        step: 1,
+        interval: 50,
+        // set default suffix is empty
+        suffix: null,
+      }
+      if (typeof typing === "object") {
+        baseConfig = { ...baseConfig, ...typing }
+      }
+      return [true, baseConfig.step, baseConfig.interval, baseConfig.suffix]
+    }, [typing])
+
     const contextValue = React.useMemo<BubbleContextProps>(
       () => ({
         placement,
         avatarPlaceholder,
         loading,
         typing,
+        typingConfig,
+        messageRender,
         onTypingComplete,
       }),
-      [placement, loading, typing, onTypingComplete, avatarPlaceholder]
+      [
+        placement,
+        loading,
+        typing,
+        onTypingComplete,
+        avatarPlaceholder,
+        typingConfig,
+        messageRender,
+      ]
     )
+
     return (
       <BubbleContext.Provider value={contextValue}>
         <div
@@ -137,7 +179,7 @@ const BubbleAvatar = React.forwardRef<
           <AvatarTrigger
             className={cn("h-4 w-4 [&>svg]:size-2.5", triggerClassName)}
           >
-            <Star />
+            <Loading size="sm" className="gap-px" itemClassName="bg-white" />
           </AvatarTrigger>
         )}
       </Avatar>
@@ -202,11 +244,52 @@ const bubbleContentVariants = cva("text-chat-foreground px-4 py-3 text-sm", {
 })
 export interface BubbleContentProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof bubbleContentVariants> {}
+    VariantProps<typeof bubbleContentVariants> {
+  loading?: boolean
+}
 
 const BubbleContent = React.forwardRef<HTMLDivElement, BubbleContentProps>(
-  ({ className, variant, shape, ...props }, ref) => {
-    const { placement } = useBubble()
+  ({ className, variant, shape, loading, children, ...props }, ref) => {
+    const {
+      placement,
+      typingConfig,
+      onUpdate,
+      onTypingComplete,
+      messageRender,
+    } = useBubble()
+    const [typingEnabled, typingStep, typingInterval, customSuffix] =
+      typingConfig
+    // ============================ Typing ============================
+    const [typedContent, isTyping] = useTypedEffect(
+      children,
+      typingEnabled,
+      typingStep,
+      typingInterval
+    )
+
+    React.useEffect(() => {
+      onUpdate?.()
+    }, [typedContent])
+
+    const triggerTypingCompleteRef = React.useRef(false)
+    React.useEffect(() => {
+      if (!isTyping && !loading) {
+        // StrictMode will trigger this twice,
+        // So we need a flag to avoid that
+        if (!triggerTypingCompleteRef.current) {
+          triggerTypingCompleteRef.current = true
+          onTypingComplete?.()
+        }
+      } else {
+        triggerTypingCompleteRef.current = false
+      }
+    }, [isTyping, loading])
+
+    // =========================== Content ============================
+    const mergedContent = messageRender
+      ? messageRender(typedContent as any)
+      : typedContent
+
     return (
       <div
         ref={ref}
@@ -217,7 +300,16 @@ const BubbleContent = React.forwardRef<HTMLDivElement, BubbleContentProps>(
           className
         )}
         {...props}
-      />
+      >
+        {loading ? (
+          <Loading itemClassName="bg-chat-bubble-foreground" className="h-5" />
+        ) : (
+          <>
+            {mergedContent}
+            {isTyping && customSuffix}
+          </>
+        )}
+      </div>
     )
   }
 )

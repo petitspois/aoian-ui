@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loading",
+  "type": "registry:ui",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "files": [
+    {
+      "path": "ui/loading.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst loadingItemVariants = cva(\"rounded-full bg-primary\", {\n  variants: {\n    size: {\n      sm: \"h-0.5 w-0.5 animate-loading-move-min\",\n      default: \"h-1 w-1 animate-loading-move\",\n      lg: \"h-2 w-2 animate-loading-move\",\n    },\n  },\n  defaultVariants: {\n    size: \"default\",\n  },\n})\n\nconst Loading = React.forwardRef<\n  HTMLSpanElement,\n  React.HTMLAttributes<HTMLSpanElement> &\n    VariantProps<typeof loadingItemVariants> & { itemClassName?: string }\n>(({ className, itemClassName, size, ...props }, ref) => {\n  return (\n    <span\n      className={cn(\"relative h-full flex items-center gap-2 p-1\", className)}\n      ref={ref}\n      {...props}\n    >\n      <i\n        className={cn(\"delay-0\", loadingItemVariants({ size }), itemClassName)}\n      ></i>\n      <i\n        className={cn(\n          \"delay-200\",\n          loadingItemVariants({ size }),\n          itemClassName\n        )}\n      ></i>\n      <i\n        className={cn(\n          \"delay-400\",\n          loadingItemVariants({ size }),\n          itemClassName\n        )}\n      ></i>\n    </span>\n  )\n})\n\nLoading.displayName = \"Loading\"\n\nexport { Loading }\n",
+      "type": "registry:ui",
+      "target": ""
+    }
+  ]
+}

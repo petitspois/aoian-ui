@@ -4,12 +4,13 @@
   "type": "registry:example",
   "author": "shadcn (https://ui.shadcn.com)",
   "registryDependencies": [
-    "bubble"
+    "bubble",
+    "button"
   ],
   "files": [
     {
       "path": "examples/bubble-layout.tsx",
-      "content": "import {\n  Bubble,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleDemo() {\n  return (\n    <Bubble>\n      <BubbleWrapper>\n        <BubbleContent>hello world !</BubbleContent>\n      </BubbleWrapper>\n    </Bubble>\n  )\n}\n",
+      "content": "import { Bot, Copy, Ellipsis, RefreshCw } from \"lucide-react\"\n\nimport {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleFooter,\n  BubbleHeader,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\nimport { Button } from \"@/registry/default/ui/button\"\n\nexport default function BubbleLayout() {\n  return (\n    <Bubble>\n      <BubbleAvatar>\n        <Bot size={18} />\n      </BubbleAvatar>\n      <BubbleWrapper>\n        <BubbleHeader>Aoian UI</BubbleHeader>\n        <BubbleContent>Good morning, how are you?</BubbleContent>\n        <BubbleFooter className={\"space-x-2\"}>\n          <Button\n            variant=\"ghost\"\n            className=\"text-chat-bubble-foreground h-6 w-6 !p-0\"\n          >\n            <Copy />\n          </Button>\n          <Button\n            variant=\"ghost\"\n            className=\"text-chat-bubble-foreground h-6 w-6 !p-0\"\n          >\n            <RefreshCw />\n          </Button>{\" \"}\n          <Button\n            variant=\"ghost\"\n            className=\"text-chat-bubble-foreground h-6 w-6 !p-0\"\n          >\n            <Ellipsis />\n          </Button>\n        </BubbleFooter>\n      </BubbleWrapper>\n    </Bubble>\n  )\n}\n",
       "type": "registry:example",
       "target": ""
     }
