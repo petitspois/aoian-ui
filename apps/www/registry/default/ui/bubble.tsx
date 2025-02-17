@@ -233,6 +233,7 @@ const bubbleContentVariants = cva("text-chat-foreground px-4 py-3 text-sm", {
       filled: "bg-chat-bubble text-chat-bubble-foreground",
       outlined: "border-chat-bubble-border border",
       shadow: "dark:bg-chat-bubble shadow",
+      borderless: "border-none px-0 py-0",
     },
     shape: {
       default: "rounded-xl",

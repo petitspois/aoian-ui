@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble-shape",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "bubble"
+  ],
+  "files": [
+    {
+      "path": "examples/bubble-shape.tsx",
+      "content": "import React from \"react\"\nimport { Bot } from \"lucide-react\"\n\nimport {\n  Bubble,\n  BubbleAvatar,\n  BubbleContent,\n  BubbleWrapper,\n} from \"@/registry/default/ui/bubble\"\n\nexport default function BubbleShape() {\n  return (\n    <div className={\"space-y-4\"}>\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent variant=\"filled\">variant: filled</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent variant=\"outlined\">variant: outlined</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent variant=\"shadow\">variant: shadow</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n      <Bubble>\n        <BubbleAvatar>\n          <Bot size={18} />\n        </BubbleAvatar>\n        <BubbleWrapper>\n          <BubbleContent variant=\"borderless\">variant: borderless to customize</BubbleContent>\n        </BubbleWrapper>\n      </Bubble>\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

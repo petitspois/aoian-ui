@@ -3579,6 +3579,36 @@ export const Index: Record<string, any> = {
       source: "",
       meta: undefined,
     },
+    "bubble-variant": {
+      name: "bubble-variant",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-variant.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-variant.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-shape": {
+      name: "bubble-shape",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-shape.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-shape.tsx")),
+      source: "",
+      meta: undefined,
+    },
     "calendar-demo": {
       name: "calendar-demo",
       description: "",

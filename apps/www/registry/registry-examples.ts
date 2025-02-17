@@ -366,6 +366,28 @@ export const examples: Registry["items"] = [
     ],
   },
   {
+    name: "bubble-variant",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-variant.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "bubble-shape",
+    type: "registry:example",
+    registryDependencies: ["bubble"],
+    files: [
+      {
+        path: "examples/bubble-shape.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
     name: "calendar-demo",
     type: "registry:example",
     registryDependencies: ["calendar"],
