@@ -237,7 +237,7 @@ const bubbleContentVariants = cva("text-chat-foreground px-4 py-3 text-sm", {
     },
     shape: {
       default: "rounded-xl",
-      round: "rounded-full",
+      round: "rounded-[calc(20px/2+12px)]",
       corner: "rounded-xl",
     },
   },
