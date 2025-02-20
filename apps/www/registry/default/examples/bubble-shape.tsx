@@ -8,7 +8,10 @@ import {
   BubbleWrapper,
 } from "@/registry/default/ui/bubble"
 
-const longText = 'This is a long text message to show the multiline view of the bubble component. '.repeat(3);
+const longText =
+  "This is a long text message to show the multiline view of the bubble component. ".repeat(
+    3
+  )
 
 export default function BubbleShape() {
   return (
@@ -20,9 +23,7 @@ export default function BubbleShape() {
       </Bubble>
       <Bubble placement="end">
         <BubbleWrapper>
-          <BubbleContent className={'max-w-[500px]'}>
-            {longText}
-          </BubbleContent>
+          <BubbleContent className={"max-w-[500px]"}>{longText}</BubbleContent>
         </BubbleWrapper>
       </Bubble>
       <Bubble>
@@ -32,7 +33,7 @@ export default function BubbleShape() {
       </Bubble>
       <Bubble placement="end">
         <BubbleWrapper>
-          <BubbleContent shape="round" className={'max-w-[500px]'}>
+          <BubbleContent shape="round" className={"max-w-[500px]"}>
             {longText}
           </BubbleContent>
         </BubbleWrapper>
@@ -44,7 +45,7 @@ export default function BubbleShape() {
       </Bubble>
       <Bubble placement="end">
         <BubbleWrapper>
-          <BubbleContent shape="corner" className={'max-w-[500px]'}>
+          <BubbleContent shape="corner" className={"max-w-[500px]"}>
             {longText}
           </BubbleContent>
         </BubbleWrapper>

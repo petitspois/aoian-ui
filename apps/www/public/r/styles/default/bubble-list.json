@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bubble-list",
+  "type": "registry:example",
+  "author": "shadcn (https://ui.shadcn.com)",
+  "registryDependencies": [
+    "bubble"
+  ],
+  "files": [
+    {
+      "path": "examples/bubble-list.tsx",
+      "content": "import * as React from \"react\"\nimport { Bot } from \"lucide-react\"\n\nimport {\n  BubbleList,\n  type BubbleListProps,\n  type BubbleListRef,\n} from \"@/registry/default/ui/bubble\"\nimport { Button } from \"@/registry/default/ui/button\"\n\nconst roles: BubbleListProps[\"roles\"] = {\n  ai: {\n    placement: \"start\",\n    typing: { step: 5, interval: 20 },\n    className: \"max-w-[600px]\",\n  },\n  user: {\n    placement: \"end\",\n  },\n}\n\nexport default function BubbleListDemo() {\n  const [count, setCount] = React.useState(3)\n  const listRef = React.useRef<BubbleListRef>(null)\n  return (\n    <div className=\"grow space-y-4 self-start\">\n      <div className=\"space-x-2\">\n        <Button\n          onClick={() => {\n            setCount((i) => i + 1)\n          }}\n        >\n          Add Bubble\n        </Button>\n        <Button\n          onClick={() => {\n            listRef.current?.scrollTo({ key: 0, block: \"nearest\" })\n          }}\n        >\n          Scroll To First\n        </Button>\n      </div>\n      <BubbleList\n        ref={listRef}\n        className=\"max-h-[300px]\"\n        roles={roles}\n        items={Array.from({ length: count }).map((_, i) => {\n          const isAI = !!(i % 2)\n          const content = isAI\n            ? \"Mock AI content. \".repeat(20)\n            : \"Mock user content.\"\n\n          return {\n            role: isAI ? \"ai\" : \"user\",\n            content,\n          }\n        })}\n      />\n    </div>\n  )\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

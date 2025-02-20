@@ -99,8 +99,7 @@
     "type": "registry:ui",
     "registryDependencies": [
       "avatar",
-      "loading",
-      "use-typed-effect"
+      "loading"
     ],
     "files": [
       {

@@ -21,14 +21,4 @@ export const hooks: Registry["items"] = [
       },
     ],
   },
-  {
-    name: "use-typed-effect",
-    type: "registry:hook",
-    files: [
-      {
-        path: "hooks/use-typed-effect.ts",
-        type: "registry:hook",
-      },
-    ],
-  },
 ]

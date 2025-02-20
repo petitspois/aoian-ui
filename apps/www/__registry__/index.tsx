@@ -84,7 +84,7 @@ export const Index: Record<string, any> = {
       name: "bubble",
       description: "",
       type: "registry:ui",
-      registryDependencies: ["avatar","loading","use-typed-effect"],
+      registryDependencies: ["avatar","loading"],
       files: [{
         path: "registry/default/ui/bubble.tsx",
         type: "registry:ui",
@@ -2359,21 +2359,6 @@ export const Index: Record<string, any> = {
       source: "",
       meta: undefined,
     },
-    "use-typed-effect": {
-      name: "use-typed-effect",
-      description: "",
-      type: "registry:hook",
-      registryDependencies: undefined,
-      files: [{
-        path: "registry/default/hooks/use-typed-effect.ts",
-        type: "registry:hook",
-        target: ""
-      }],
-      categories: undefined,
-      component: React.lazy(() => import("@/registry/default/hooks/use-typed-effect.ts")),
-      source: "",
-      meta: undefined,
-    },
     "sink": {
       name: "sink",
       description: "",
@@ -3606,6 +3591,21 @@ export const Index: Record<string, any> = {
       }],
       categories: undefined,
       component: React.lazy(() => import("@/registry/default/examples/bubble-shape.tsx")),
+      source: "",
+      meta: undefined,
+    },
+    "bubble-list": {
+      name: "bubble-list",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["bubble"],
+      files: [{
+        path: "registry/default/examples/bubble-list.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      categories: undefined,
+      component: React.lazy(() => import("@/registry/default/examples/bubble-list.tsx")),
       source: "",
       meta: undefined,
     },

@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { Bot } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { useTypedEffect } from "@/registry/default/hooks/use-typed-effect"
 import {
   Avatar,
   AvatarFallback,
@@ -12,8 +12,9 @@ import {
   AvatarTrigger,
 } from "@/registry/default/ui/avatar"
 import { Loading } from "@/registry/default/ui/loading"
+import {useContext} from "react";
 
-export interface TypingOption {
+interface TypingOption {
   /**
    * @default 1
    */
@@ -32,25 +33,13 @@ type BubbleContextProps = {
   placement?: "start" | "end"
   loading?: boolean
   typing?: boolean | TypingOption
-  onUpdate?: VoidFunction
   onTypingComplete?: VoidFunction
   className?: string
   avatarPlaceholder?: boolean
   messageRender?: (content: string) => React.ReactNode
 }
 
-type TypingConfigProps = {
-  typingConfig: [
-    enableTyping: boolean,
-    step: number,
-    interval: number,
-    suffix: React.ReactNode | null
-  ]
-}
-
-const BubbleContext = React.createContext<
-  (BubbleContextProps & TypingConfigProps) | null
->(null)
+const BubbleContext = React.createContext<BubbleContextProps | null>(null)
 
 function useBubble() {
   const context = React.useContext(BubbleContext)
@@ -60,8 +49,12 @@ function useBubble() {
   return context
 }
 
+interface BubbleRef {
+  nativeElement: HTMLElement
+}
+
 const Bubble = React.forwardRef<
-  HTMLDivElement,
+  BubbleRef,
   React.HTMLAttributes<HTMLDivElement> & BubbleContextProps
 >(
   (
@@ -78,31 +71,19 @@ const Bubble = React.forwardRef<
     },
     ref
   ) => {
-    const typingConfig = React.useMemo<
-      TypingConfigProps["typingConfig"]
-    >(() => {
-      if (!typing) {
-        return [false, 0, 0, null]
-      }
-      let baseConfig: Required<TypingOption> = {
-        step: 1,
-        interval: 50,
-        // set default suffix is empty
-        suffix: null,
-      }
-      if (typeof typing === "object") {
-        baseConfig = { ...baseConfig, ...typing }
-      }
-      return [true, baseConfig.step, baseConfig.interval, baseConfig.suffix]
-    }, [typing])
+    // ============================= Refs =============================
+    const divRef = React.useRef<HTMLDivElement>(null)
 
-    const contextValue = React.useMemo<BubbleContextProps & TypingConfigProps>(
+    React.useImperativeHandle(ref, () => ({
+      nativeElement: divRef.current!,
+    }))
+
+    const contextValue = React.useMemo<BubbleContextProps>(
       () => ({
         placement,
         avatarPlaceholder,
         loading,
         typing,
-        typingConfig,
         messageRender,
         onTypingComplete,
       }),
@@ -112,7 +93,6 @@ const Bubble = React.forwardRef<
         typing,
         onTypingComplete,
         avatarPlaceholder,
-        typingConfig,
         messageRender,
       ]
     )
@@ -124,7 +104,7 @@ const Bubble = React.forwardRef<
             "group flex gap-2 data-[placement=end]:flex-row-reverse",
             className
           )}
-          ref={ref}
+          ref={divRef}
           data-placement={placement}
           {...props}
         >
@@ -246,6 +226,7 @@ const bubbleContentVariants = cva("text-chat-foreground px-4 py-3 text-sm", {
     shape: "default",
   },
 })
+
 export interface BubbleContentProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof bubbleContentVariants> {
@@ -254,15 +235,10 @@ export interface BubbleContentProps
 
 const BubbleContent = React.forwardRef<HTMLDivElement, BubbleContentProps>(
   ({ className, variant, shape, loading, children, ...props }, ref) => {
-    const {
-      placement,
-      typingConfig,
-      onUpdate,
-      onTypingComplete,
-      messageRender,
-    } = useBubble()
+    const { placement, typing, onTypingComplete, messageRender } = useBubble()
     const [typingEnabled, typingStep, typingInterval, customSuffix] =
-      typingConfig
+      useTypingConfig(typing)
+     const { onUpdate } =  useContext(BubbleListContext)
     // ============================ Typing ============================
     const [typedContent, isTyping] = useTypedEffect(
       children,
@@ -319,12 +295,394 @@ const BubbleContent = React.forwardRef<HTMLDivElement, BubbleContentProps>(
 )
 BubbleContent.displayName = "BubbleContent"
 
+// ============================= BubbleList =============================
+interface BubbleListRef {
+  nativeElement: HTMLDivElement
+  scrollTo: (info: {
+    offset?: number
+    key?: string | number
+    behavior?: ScrollBehavior
+    block?: ScrollLogicalPosition
+  }) => void
+}
+
+type BubbleDataType = BubbleContextProps & {
+  content?: React.ReactNode
+  key?: string | number
+  role?: string
+}
+
+type RoleType = Partial<BubbleContextProps>
+
+type RolesType =
+  | Record<string, RoleType>
+  | ((bubbleDataP: BubbleDataType, index: number) => RoleType)
+
+interface BubbleListProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string
+  items?: BubbleDataType[]
+  autoScroll?: boolean
+  roles?: RolesType
+}
+
+const TOLERANCE = 1
+
+interface BubbleListContextProps {
+  onUpdate?: VoidFunction
+}
+
+const BubbleListContext = React.createContext<BubbleListContextProps>({})
+
+const BubbleList = React.forwardRef<BubbleListRef, BubbleListProps>(
+  ({ className, items, autoScroll = true, roles, ...props }, ref) => {
+    // ============================= Refs =============================
+    const listRef = React.useRef<HTMLDivElement>(null)
+
+    const bubbleRefs = React.useRef<Record<string, BubbleRef>>({})
+
+    // ============================ Typing ============================
+    const [initialized, setInitialized] = React.useState(false)
+
+    React.useEffect(() => {
+      setInitialized(true)
+      return () => {
+        setInitialized(false)
+      }
+    }, [])
+
+    // ============================= Data =============================
+    const mergedData = useListData(items, roles)
+    const [displayData, onTypingComplete] = useDisplayData(mergedData)
+
+    // ============================ Scroll ============================
+    // Is current scrollTop at the end. User scroll will make this false.
+    const [scrollReachEnd, setScrollReachEnd] = React.useState(true)
+
+    const [updateCount, setUpdateCount] = React.useState(0)
+
+    const onInternalScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
+      const target = e.target as HTMLElement
+
+      setScrollReachEnd(
+        target.scrollHeight -
+          Math.abs(target.scrollTop) -
+          target.clientHeight <=
+          TOLERANCE
+      )
+    }
+
+    React.useEffect(() => {
+      if (autoScroll && listRef.current && scrollReachEnd) {
+        listRef.current.scrollTo({
+          top: listRef.current.scrollHeight,
+        })
+      }
+    }, [updateCount])
+
+    // Always scroll to bottom when data change
+    React.useEffect(() => {
+      if (autoScroll) {
+
+        // New date come, the origin last one is the second last one
+        const lastItemKey = displayData[displayData.length - 2]?.key
+        const bubbleInst = bubbleRefs.current[lastItemKey!]
+
+
+        // Auto scroll if last 2 item is visible
+        if (bubbleInst) {
+          const { nativeElement } = bubbleInst
+          const { top, bottom } = nativeElement.getBoundingClientRect()
+          const { top: listTop, bottom: listBottom } =
+            listRef.current!.getBoundingClientRect()
+
+
+          const isVisible = top < listBottom && bottom > listTop
+          if (isVisible) {
+            setUpdateCount((c) => c + 1)
+            setScrollReachEnd(true)
+          }
+        }
+      }
+    }, [displayData.length])
+
+    // ========================== Outer Ref ===========================
+    React.useImperativeHandle(ref, () => ({
+      nativeElement: listRef.current!,
+      scrollTo: ({ key, offset, behavior = "smooth", block }) => {
+        if (typeof offset === "number") {
+          // Offset scroll
+          listRef.current!.scrollTo({
+            top: offset,
+            behavior,
+          })
+        } else if (key !== undefined) {
+          // Key scroll
+          const bubbleInst = bubbleRefs.current[key]
+
+          if (bubbleInst) {
+            // Block current auto scrolling
+            const index = displayData.findIndex(
+              (dataItem) => dataItem.key === key
+            )
+            setScrollReachEnd(index === displayData.length - 1)
+
+            // Do native scroll
+            bubbleInst.nativeElement.scrollIntoView({
+              behavior,
+              block,
+            })
+          }
+        }
+      },
+    }))
+
+    // =========================== Context ============================
+    // When bubble content update, we try to trigger `autoScroll` for sync
+    const onBubbleUpdate = useEvent(() => {
+      if (autoScroll) {
+        setUpdateCount((c) => c + 1)
+      }
+    })
+
+    const context = React.useMemo(
+      () => ({
+        onUpdate: onBubbleUpdate,
+      }),
+      []
+    )
+
+
+    return (
+      <BubbleListContext.Provider value={context}>
+        <div
+          {...props}
+          ref={listRef}
+          className={cn("flex flex-col gap-4 overflow-y-auto", className)}
+          onScroll={onInternalScroll}
+        >
+          {displayData.map(({ key, content, ...bubble }) => (
+            <Bubble
+              {...bubble}
+              key={key}
+              ref={(node) => {
+                if (node) {
+                  bubbleRefs.current[key] = node
+                } else {
+                  delete bubbleRefs.current[key]
+                }
+              }}
+              typing={initialized ? bubble.typing : false}
+              onTypingComplete={() => {
+                bubble.onTypingComplete?.()
+                onTypingComplete(key)
+              }}
+            >
+              <>
+              <BubbleAvatar>
+                <Bot size={18} />
+              </BubbleAvatar>
+              <BubbleWrapper>
+                <BubbleContent>{content}</BubbleContent>
+              </BubbleWrapper>
+              </>
+            </Bubble>
+          ))}
+        </div>
+      </BubbleListContext.Provider>
+    )
+  }
+)
+BubbleList.displayName = "BubbleList"
+
+// ============================= Hooks =============================
+function isString(str: any): str is string {
+  return typeof str === "string"
+}
+
+function useEvent<T extends Function>(callback: T): T {
+  const fnRef = React.useRef<any>()
+  fnRef.current = callback
+
+  const memoFn = React.useCallback<T>(
+    ((...args: any) => fnRef.current?.(...args)) as any,
+    []
+  )
+
+  return memoFn
+}
+
+/**
+ * Return typed content and typing status when typing is enabled.
+ * Or return content directly.
+ */
+function useTypedEffect(
+  content: React.ReactNode | object,
+  typingEnabled: boolean,
+  typingStep: number,
+  typingInterval: number
+): [typedContent: React.ReactNode | object, isTyping: boolean] {
+  const [prevContent, setPrevContent] = React.useState<
+    React.ReactNode | object
+  >("")
+  const [typingIndex, setTypingIndex] = React.useState<number>(1)
+
+  const mergedTypingEnabled = typingEnabled && isString(content)
+
+  // Reset typing index when content changed
+  React.useLayoutEffect(() => {
+    setPrevContent(content)
+    if (!mergedTypingEnabled && isString(content)) {
+      setTypingIndex(content.length)
+    } else if (
+      isString(content) &&
+      isString(prevContent) &&
+      content.indexOf(prevContent) !== 0
+    ) {
+      setTypingIndex(1)
+    }
+  }, [content])
+
+  // Start typing
+  React.useEffect(() => {
+    if (mergedTypingEnabled && typingIndex < content.length) {
+      const id = setTimeout(() => {
+        setTypingIndex((prev) => prev + typingStep)
+      }, typingInterval)
+
+      return () => {
+        clearTimeout(id)
+      }
+    }
+  }, [typingIndex, typingEnabled, content])
+
+  const mergedTypingContent = mergedTypingEnabled
+    ? content.slice(0, typingIndex)
+    : content
+
+  return [
+    mergedTypingContent,
+    mergedTypingEnabled && typingIndex < content.length,
+  ]
+}
+
+function useTypingConfig(typing?: boolean | TypingOption) {
+  return React.useMemo<
+    [
+      enableTyping: boolean,
+      step: number,
+      interval: number,
+      suffix: React.ReactNode
+    ]
+  >(() => {
+    if (!typing) {
+      return [false, 0, 0, null]
+    }
+
+    let baseConfig: Required<TypingOption> = {
+      step: 1,
+      interval: 50,
+      // set default suffix is empty
+      suffix: null,
+    }
+
+    if (typeof typing === "object") {
+      baseConfig = { ...baseConfig, ...typing }
+    }
+
+    return [true, baseConfig.step, baseConfig.interval, baseConfig.suffix]
+  }, [typing])
+}
+
+function useListData(
+  items: BubbleListProps["items"],
+  roles?: BubbleListProps["roles"]
+) {
+  const getRoleBubbleProps = React.useCallback(
+    (bubble: BubbleDataType, index: number): Partial<BubbleContextProps> => {
+      if (typeof roles === "function") {
+        return roles(bubble, index)
+      }
+
+      if (roles) {
+        return roles[bubble.role!] || {}
+      }
+
+      return {}
+    },
+    [roles]
+  )
+
+  return React.useMemo(
+    () =>
+      (items || []).map((bubbleData, i) => {
+        const mergedKey = bubbleData.key ?? `preset_${i}`
+
+        return {
+          ...getRoleBubbleProps(bubbleData, i),
+          ...bubbleData,
+          key: mergedKey,
+        }
+      }),
+    [items, getRoleBubbleProps]
+  )
+}
+
+type ListItemType = ReturnType<typeof useListData>[number]
+
+function useDisplayData(items: ListItemType[]) {
+  const [displayCount, setDisplayCount] = React.useState(items.length)
+
+  const displayList = React.useMemo(
+    () => items.slice(0, displayCount),
+    [items, displayCount]
+  )
+
+  const displayListLastKey = React.useMemo(() => {
+    const lastItem = displayList[displayList.length - 1]
+    return lastItem ? lastItem.key : null
+  }, [displayList])
+
+  // When `items` changed, we replaced with latest one
+  React.useEffect(() => {
+    if (
+      displayList.length &&
+      displayList.every((item, index) => item.key === items[index]?.key)
+    ) {
+      return
+    }
+
+    if (displayList.length === 0) {
+      setDisplayCount(1)
+    } else {
+      // Find diff index
+      for (let i = 0; i < displayList.length; i += 1) {
+        if (displayList[i].key !== items[i]?.key) {
+          setDisplayCount(i)
+          break
+        }
+      }
+    }
+  }, [items])
+
+  // Continue to show if last one finished typing
+  const onTypingComplete = useEvent((key: string | number) => {
+    if (key === displayListLastKey) {
+      setDisplayCount(displayCount + 1)
+    }
+  })
+
+  return [displayList, onTypingComplete] as const
+}
+
 export {
   Bubble,
+  BubbleList,
   BubbleAvatar,
   BubbleHeader,
   BubbleWrapper,
   BubbleContent,
   BubbleFooter,
   useBubble,
+  type BubbleListProps,
+  type BubbleListRef,
 }
