@@ -145,10 +145,10 @@ const BubbleAvatar = React.forwardRef<
     ref
   ) => {
     if (placeholder) {
-      return <div className={cn("invisible h-8 w-8", className)}></div>
+      return <div className={cn("invisible h-8 w-8 shrink-0", className)}></div>
     }
     return (
-      <Avatar className={cn("h-8 w-8", className)} ref={ref}>
+      <Avatar className={cn("h-8 w-8 shrink-0", className)} ref={ref}>
         <AvatarImage src={src} alt={alt ?? "@aoian"} />
         <AvatarFallback
           className={cn(
@@ -310,9 +310,14 @@ type BubbleDataType = BubbleContextProps & {
   content?: React.ReactNode
   key?: string | number
   role?: string
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  avatar?: React.ReactElement;
+  variant?: 'filled' | 'borderless' | 'outlined' | 'shadow';
+  shape?: 'round' | 'corner';
 }
 
-type RoleType = Partial<BubbleContextProps>
+type RoleType = Partial<Omit<BubbleDataType, 'content' | 'key' | 'role'>>
 
 type RolesType =
   | Record<string, RoleType>
@@ -451,7 +456,6 @@ const BubbleList = React.forwardRef<BubbleListRef, BubbleListProps>(
       []
     )
 
-
     return (
       <BubbleListContext.Provider value={context}>
         <div
@@ -460,7 +464,7 @@ const BubbleList = React.forwardRef<BubbleListRef, BubbleListProps>(
           className={cn("flex flex-col gap-4 overflow-y-auto", className)}
           onScroll={onInternalScroll}
         >
-          {displayData.map(({ key, content, ...bubble }) => (
+          {displayData.map(({ key, content, loading, avatar, header, footer, shape, variant, ...bubble }) => (
             <Bubble
               {...bubble}
               key={key}
@@ -478,11 +482,11 @@ const BubbleList = React.forwardRef<BubbleListRef, BubbleListProps>(
               }}
             >
               <>
-              <BubbleAvatar>
-                <Bot size={18} />
-              </BubbleAvatar>
+              {avatar}
               <BubbleWrapper>
-                <BubbleContent>{content}</BubbleContent>
+                {header}
+                <BubbleContent shape={shape} variant={variant} loading={loading}>{content}</BubbleContent>
+                {footer}
               </BubbleWrapper>
               </>
             </Bubble>

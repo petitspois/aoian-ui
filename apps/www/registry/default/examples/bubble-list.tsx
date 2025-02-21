@@ -1,7 +1,8 @@
 import * as React from "react"
-import { Bot } from "lucide-react"
+import {Bot, Copy, Ellipsis, RefreshCw} from "lucide-react"
 
 import {
+  BubbleAvatar, BubbleFooter,
   BubbleList,
   type BubbleListProps,
   type BubbleListRef,
@@ -13,9 +14,22 @@ const roles: BubbleListProps["roles"] = {
     placement: "start",
     typing: { step: 5, interval: 20 },
     className: "max-w-[600px]",
+    shape: 'corner',
+    avatar: (
+      <BubbleAvatar>
+        <Bot size={18} />
+      </BubbleAvatar>
+    ),
   },
   user: {
     placement: "end",
+    shape: 'corner',
+    avatar: (
+      <BubbleAvatar
+        src="https://avatars.githubusercontent.com/u/9461149?s=48&v=4"
+        alt="@petitspois"
+      />
+    ),
   },
 }
 
@@ -46,6 +60,7 @@ export default function BubbleListDemo() {
         roles={roles}
         items={Array.from({ length: count }).map((_, i) => {
           const isAI = !!(i % 2)
+          const isLast = i === count - 1
           const content = isAI
             ? "Mock AI content. ".repeat(20)
             : "Mock user content."
